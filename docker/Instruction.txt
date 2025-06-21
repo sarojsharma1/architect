@@ -1,0 +1,68 @@
+Docker Images
+---------------------------------------------------------------
+docker images
+List all Docker images on your system.
+
+docker pull <image>
+Download an image from Docker Hub (e.g., docker pull ubuntu).
+
+docker rmi <image>
+Remove a Docker image.
+
+
+Docker Containers
+----------------------------------------------------------------
+docker ps
+List all running containers.
+
+docker ps -a
+List all containers (running and stopped).
+
+docker run <image>
+Run a container from an image.
+
+docker run -it <image> /bin/bash
+Run a container interactively with a bash shell.
+
+docker stop <container_id>
+Stop a running container.
+
+docker start <container_id>
+Start a stopped container.
+
+docker restart <container_id>
+Restart a container.
+
+docker rm <container_id>
+Remove a stopped container.
+
+docker logs <container_id>
+View logs from a container.
+
+docker exec -it <container_id> /bin/bash
+Access a running container’s shell.
+
+
+
+Docker System
+-----------------------------------------------------------------
+docker system prune
+Remove unused data (containers, images, networks).
+
+docker version
+Show Docker version info.
+
+docker info
+Display detailed Docker system info.
+
+
+Docker Compose (if installed)
+------------------------------------------------------------------
+docker-compose up
+Start containers defined in docker-compose.yml.
+
+docker-compose up -d
+Start containers in detached mode (background).
+
+docker-compose down
+Stop and remove containers defined in docker-compose.yml.
