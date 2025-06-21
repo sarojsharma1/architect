@@ -34,3 +34,10 @@ build/
 ### VS Code ###
 .vscode/
 
+node_modules/
+dist/
+.angular/cache/
+*.log
+.DS_Store
+coverage/
+.env
