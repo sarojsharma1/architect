@@ -1,0 +1,13 @@
+server:
+  port: 8022
+  servlet:
+    context-path: /data
+
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    prefer-ip-address: true

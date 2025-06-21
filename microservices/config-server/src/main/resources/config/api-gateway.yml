@@ -1,4 +1,30 @@
 server:
-  port: 8020
-  ssl:
-    enabled: false
+  port: 8021
+
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    prefer-ip-instance: true
+
+cloud:
+  gateway:
+    routes:
+      - id: process-service
+        uri: lb://process-service
+        predicates:
+          - Path=/process/**
+
+      - id: data-service
+        uri: lb://data-service
+        predicates:
+          - Path=/data/**
+
+    discovery:
+      locator:
+        enabled: true
+        lower-case-service-id: true
+

@@ -1,6 +1,6 @@
 spring:
   application:
-    name: api-gateway
+    name: process-service
   cloud:
     config:
       fail-fast: true
@@ -9,5 +9,6 @@ spring:
         max-attempts: 1000
         initial-interval: 1000
       uri: http://localhost:8888
+
   config:
     import: "configserver:"

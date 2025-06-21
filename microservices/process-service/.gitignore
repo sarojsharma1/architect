@@ -1,10 +1,8 @@
-# Ignore Maven target directories
+HELP.md
 target/
+.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
-
-# Maven Wrapper
-.mvn/wrapper/maven-wrapper.jar
 
 ### STS ###
 .apt_generated
@@ -33,4 +31,3 @@ build/
 
 ### VS Code ###
 .vscode/
-

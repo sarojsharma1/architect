@@ -1,6 +1,6 @@
 spring:
   application:
-    name: api-gateway
+    name: data-service
   cloud:
     config:
       fail-fast: true
