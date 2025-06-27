@@ -2,29 +2,31 @@ server:
   port: 8021
 
 eureka:
+  instance:
+    hostname: localhost
+    prefer-ip-address: false
   client:
     fetch-registry: true
     register-with-eureka: true
     service-url:
       defaultZone: http://localhost:8761/eureka
-  instance:
-    prefer-ip-instance: true
 
-cloud:
-  gateway:
-    routes:
-      - id: process-service
-        uri: lb://process-service
-        predicates:
-          - Path=/process/**
+spring:
+  cloud:
+    gateway:
+      server:
+        webflux:
+          routes:
+            - id: process-service
+              uri: lb://process-service
+              predicates:
+                - Path=/process/**
 
-      - id: data-service
-        uri: lb://data-service
-        predicates:
-          - Path=/data/**
-
+            - id: data-service
+              uri: lb://data-service
+              predicates:
+                - Path=/data/**
     discovery:
       locator:
         enabled: true
         lower-case-service-id: true
-

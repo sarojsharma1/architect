@@ -1,0 +1,19 @@
+package com.architect.data_service.service;
+
+import com.architect.data_service.config.RabbitConfig;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.stereotype.Service;
+
+@Service
+public class RabbitMQProducer {
+
+    private final RabbitTemplate rabbitTemplate;
+
+    public RabbitMQProducer(RabbitTemplate rabbitTemplate) {
+        this.rabbitTemplate = rabbitTemplate;
+    }
+
+    public void send(String message) {
+        rabbitTemplate.convertAndSend(RabbitConfig.EXCHANGE, RabbitConfig.ROUTING_KEY, message);
+    }
+}
