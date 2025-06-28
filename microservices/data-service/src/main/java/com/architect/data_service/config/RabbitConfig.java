@@ -1,11 +1,6 @@
 package com.architect.data_service.config;
 
-import org.springframework.amqp.rabbit.connection.ConnectionFactory;
-import org.springframework.amqp.core.Binding;
-import org.springframework.amqp.core.BindingBuilder;
-import org.springframework.amqp.core.DirectExchange;
-import org.springframework.amqp.core.Queue;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.amqp.core.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -16,13 +11,8 @@ public class RabbitConfig {
     public static final String ROUTING_KEY = "demoRoutingKey";
 
     @Bean
-    public RabbitTemplate rabbitTemplate(ConnectionFactory factory) {
-        return new RabbitTemplate(factory);
-    }
-
-    @Bean
     public Queue queue() {
-        return new Queue(QUEUE);
+        return QueueBuilder.durable(QUEUE).build();
     }
 
     @Bean

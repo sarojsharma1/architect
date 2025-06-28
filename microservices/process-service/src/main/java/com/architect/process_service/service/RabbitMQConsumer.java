@@ -8,6 +8,6 @@ public class RabbitMQConsumer {
 
     @RabbitListener(queues = "demoQueue")
     public void receive(String message) {
-        System.out.println("Test");
+        System.out.println(message);
     }
 }

@@ -10,6 +10,6 @@ public class Test {
 
     @GetMapping
     public String test() {
-        return "Process service-1";
+        return "Process service";
     }
 }

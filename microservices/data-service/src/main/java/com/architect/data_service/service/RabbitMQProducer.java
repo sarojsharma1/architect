@@ -2,13 +2,14 @@ package com.architect.data_service.service;
 
 import com.architect.data_service.config.RabbitConfig;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class RabbitMQProducer {
-
     private final RabbitTemplate rabbitTemplate;
 
+    @Autowired
     public RabbitMQProducer(RabbitTemplate rabbitTemplate) {
         this.rabbitTemplate = rabbitTemplate;
     }
