@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/test")
-public class Test {
+public class TestController {
     private final RabbitMQProducer rabbitMQProducer;
 
-    public Test(RabbitMQProducer rabbitMQProducer) {
+    public TestController(RabbitMQProducer rabbitMQProducer) {
         this.rabbitMQProducer = rabbitMQProducer;
     }
 
