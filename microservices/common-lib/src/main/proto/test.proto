@@ -1,8 +1,10 @@
 syntax = "proto3";
 
 option java_multiple_files = true;
-option java_package = "hello";
-option java_outer_classname = "Test";
+option java_package = "com.architect.common.grpc";
+option java_outer_classname = "HelloProto";
+
+package hello;
 
 message HelloRequest {
   string name = 1;
