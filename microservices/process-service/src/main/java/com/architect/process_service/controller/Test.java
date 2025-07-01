@@ -17,4 +17,9 @@ public class Test {
         grpcClient.callService();
         return "Process service";
     }
+
+    @GetMapping("web")
+    public void webTest() {
+        System.out.println("Congrats");
+    }
 }
