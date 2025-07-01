@@ -12,8 +12,8 @@ public class GrpcCall extends HelloServiceGrpc.HelloServiceImplBase {
     @Override
     public void sayHello(HelloRequest request, StreamObserver<HelloResponse> responseObserver) {
         String name = request.getName();
-        HelloResponse helloResponse = HelloResponse.newBuilder().setMessage(name).build();
-        responseObserver.onNext(helloResponse);
+        HelloResponse response = HelloResponse.newBuilder().setMessage(name).build();
+        responseObserver.onNext(response);
         responseObserver.onCompleted();
     }
 }
