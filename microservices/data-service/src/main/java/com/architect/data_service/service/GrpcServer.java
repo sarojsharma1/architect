@@ -7,7 +7,7 @@ import io.grpc.stub.StreamObserver;
 import org.springframework.grpc.server.service.GrpcService;
 
 @GrpcService
-public class GrpcCall extends HelloServiceGrpc.HelloServiceImplBase {
+public class GrpcServer extends HelloServiceGrpc.HelloServiceImplBase {
 
     @Override
     public void sayHello(HelloRequest request, StreamObserver<HelloResponse> responseObserver) {
