@@ -23,3 +23,7 @@ spring:
     host: localhost
     port: 6379
     password: user
+
+process:
+  service:
+    baseUrl: http://process-service
