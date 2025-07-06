@@ -5,6 +5,7 @@ import io.github.resilience4j.retry.annotation.Retry;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Flux;
 
 @Service
 public class RestClient {
@@ -18,11 +19,15 @@ public class RestClient {
 
     @CircuitBreaker(name = "sampleService", fallbackMethod = "fallbackHandler")
     @Retry(name = "sampleService", fallbackMethod = "fallbackHandler")
-    public void callProcessService() {
-        webClient.get().uri("/process/test/web")
-                .retrieve()
-                .bodyToMono(String.class)
-                .block();
+    public Flux<String> callProcessService() {
+        return webClient.get().uri("/process/test/web")
+                .exchangeToFlux(response -> {
+                    if (response.statusCode().is2xxSuccessful()) {
+                        return response.bodyToFlux(String.class);
+                    } else {
+                        return Flux.error(new RuntimeException("Downstream error"));
+                    }
+                });
     }
 
     public void fallbackHandler(Throwable t) {
