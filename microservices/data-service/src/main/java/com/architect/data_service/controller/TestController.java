@@ -19,7 +19,7 @@ public class TestController {
 
     @GetMapping
     public String test() {
-        rabbitMQProducer.send("Message");
+//        rabbitMQProducer.send("Message");
         restClient.callProcessService();
         return "Data-service";
     }

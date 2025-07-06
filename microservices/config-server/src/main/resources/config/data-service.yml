@@ -27,3 +27,18 @@ spring:
 process:
   service:
     baseUrl: http://process-service
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      sampleService:
+        registerHealthIndicator: true
+        slidingWindowSize: 5
+        failureRateThreshold: 50
+        waitDurationInOpenState: 10s
+
+  retry:
+    instances:
+      sampleService:
+        maxAttempts: 2
+        waitDuration: 2s
