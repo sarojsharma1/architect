@@ -1,4 +1,4 @@
-package com.architect.data_service.config;
+package com.architect.common_lib.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

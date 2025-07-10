@@ -24,6 +24,16 @@ spring:
     port: 6379
     password: user
 
+  data:
+    mongodb:
+      uri: mongodb://root:root@localhost:27017/test   #mongodb://<username>:<password>@<host>:<port>/<database>
+
+  datasource:
+    url: jdbc:oracle:thin:@localhost:1521:xe          #jdbc:oracle:thin:@<host>:<port>:<SID or service>
+    username: user
+    password: user
+    driver-class-name: oracle.jdbc.OracleDriver
+
 process:
   service:
     baseUrl: http://process-service

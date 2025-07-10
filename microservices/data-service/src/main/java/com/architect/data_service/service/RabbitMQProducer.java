@@ -1,6 +1,6 @@
 package com.architect.data_service.service;
 
-import com.architect.data_service.config.RabbitConfig;
+import com.architect.common_lib.config.RabbitConfig;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
