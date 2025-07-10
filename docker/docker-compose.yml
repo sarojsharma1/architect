@@ -28,16 +28,3 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: root
-
-  jenkins:
-    image: jenkins/jenkins:lts
-    container_name: jenkins
-    ports:
-      - "8080:8080"   # Jenkins web interface
-      - "50000:50000" # For Jenkins agent communication
-    volumes:
-      - jenkins_home:/var/jenkins_home
-    restart: unless-stopped
-
-volumes:
-  jenkins_home:
