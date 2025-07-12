@@ -25,6 +25,11 @@ spring:
               uri: lb://data-service
               predicates:
                 - Path=/data/**
+
+            - id: auth-server
+              uri: http://localhost:8085
+              predicates:
+                - Path=/auth/**
     discovery:
       locator:
         enabled: true
