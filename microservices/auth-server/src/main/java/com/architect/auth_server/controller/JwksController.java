@@ -6,11 +6,10 @@ import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Mono;
 
 @RestController
-@RequestMapping("register")
-public class Register {
-    @GetMapping()
+@RequestMapping(".well-known")
+public class JwksController {
+    @GetMapping("/jwks.json")
     public Mono<Void> test() {
-        System.out.println("Register");
         return Mono.empty();
     }
 }
