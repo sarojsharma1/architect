@@ -12,6 +12,8 @@ public class WebClientConfig {
     @Bean
     @LoadBalanced
     public WebClient.Builder webClient() {
+//        SecurityContext securityContext = SecurityContextHolder.getContext();
+//        System.out.println(securityContext);
         return WebClient.builder()
                 .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
     }
