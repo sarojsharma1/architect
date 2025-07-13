@@ -1,5 +1,4 @@
 #Common properties of microservices.
-
 eureka:
   instance:
     prefer-ip-address: true
