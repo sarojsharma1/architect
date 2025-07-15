@@ -9,7 +9,6 @@ import com.nimbusds.jose.crypto.RSASSASigner;
 import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.SignedJWT;
 import org.springframework.stereotype.Service;
-import reactor.core.publisher.Mono;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -24,7 +23,7 @@ import java.util.Date;
 
 @Service
 public class KeyGenerator {
-    public Mono<String> getKey() {
+    public String getKey() {
         JWTClaimsSet claimsSet = new JWTClaimsSet.Builder()
                 .subject("test")
                 .issuer("auth-server")
@@ -46,7 +45,7 @@ public class KeyGenerator {
         } catch (NoSuchAlgorithmException | InvalidKeySpecException | JOSEException e) {
             throw new RuntimeException(e);
         }
-        return Mono.just(signedJWT.serialize());
+        return signedJWT.serialize();
     }
 
     private PrivateKey getSecKey() throws NoSuchAlgorithmException, InvalidKeySpecException {
