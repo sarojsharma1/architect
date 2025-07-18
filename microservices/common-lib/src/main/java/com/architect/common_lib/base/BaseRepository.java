@@ -1,7 +1,10 @@
 package com.architect.common_lib.base;
 
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.NoRepositoryBean;
 
-@Repository
-public interface BaseRepository {
+import java.io.Serializable;
+
+@NoRepositoryBean
+public interface BaseRepository<T, ID extends Serializable> extends JpaRepository<T, ID> {
 }
