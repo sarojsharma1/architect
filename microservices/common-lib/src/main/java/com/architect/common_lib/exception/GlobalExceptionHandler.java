@@ -17,8 +17,8 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(responseDto, HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(value = CustomException.class)
-    public ResponseEntity<ResponseDto> handleCustomException(CustomException ex, WebRequest request) {
+    @ExceptionHandler(value = EntityNotFoundException.class)
+    public ResponseEntity<ResponseDto> handleCustomException(EntityNotFoundException ex, WebRequest request) {
         ResponseDto responseDto = new ResponseDto(ex.getMessage(), null);
         return new ResponseEntity<>(responseDto, HttpStatus.INTERNAL_SERVER_ERROR);
     }
