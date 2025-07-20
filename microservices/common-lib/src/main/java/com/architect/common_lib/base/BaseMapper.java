@@ -1,12 +1,10 @@
 package com.architect.common_lib.base;
 
-import org.mapstruct.Mapper;
+import org.mapstruct.MapperConfig;
 
-import java.io.Serializable;
+@MapperConfig(componentModel = "spring")
+public interface BaseMapper<E extends BaseEntity, D extends BaseDto> {
+    D toDto(E entity);
 
-@Mapper(componentModel = "spring")
-public interface BaseMapper<T extends Serializable> {
-    BaseDto<T> toDto(BaseEntity<T> entity);
-
-    BaseEntity<T> toEntity(BaseDto<T> dto);
+    E toEntity(D dto);
 }

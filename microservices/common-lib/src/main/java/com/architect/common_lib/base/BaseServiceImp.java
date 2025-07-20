@@ -1,13 +1,13 @@
 package com.architect.common_lib.base;
 
 import com.architect.common_lib.exception.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 
-import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
 
-
-public abstract class BaseServiceImp<T, ID extends Serializable> implements BaseService<T, ID> {
+@Transactional
+public abstract class BaseServiceImp<T extends BaseEntity, ID> implements BaseService<T, ID> {
 
     private final BaseRepository<T, ID> baseRepository;
 
@@ -21,11 +21,11 @@ public abstract class BaseServiceImp<T, ID extends Serializable> implements Base
     }
 
     @Override
-    public T update(ID id, T entity) {
+    public T update(ID id, T t) {
         if (!baseRepository.existsById(id)) {
             throw new EntityNotFoundException("Entity with ID" + id + "not found");
         }
-        return baseRepository.save(entity);
+        return baseRepository.save(t);
     }
 
     @Override

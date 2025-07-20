@@ -18,12 +18,13 @@ import java.time.Instant;
 @AllArgsConstructor
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-public abstract class BaseEntity<T extends Serializable> {
+public abstract class BaseEntity implements Serializable {
     @Id
-    private T id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Version
-    private int version;
+    private Integer version;
 
     @CreatedDate
     @Column(name = "created_date", updatable = false)
