@@ -3,14 +3,14 @@ package com.architect.common_lib.base;
 import java.util.List;
 import java.util.Optional;
 
-public interface BaseService<T extends BaseEntity, ID> {
-    T save(T t);
+public interface BaseService<E extends BaseEntity, ID> {
+    E save(E t);
 
-    T update(ID id, T t);
+    E update(ID id, E t);
 
     void deleteById(ID id);
 
-    Optional<T> findById(ID id);
+    Optional<E> findById(ID id);
 
-    List<T> findAll();
+    List<E> findAll();
 }
