@@ -1,6 +1,7 @@
 package com.architect.common_lib.base;
 
 import com.architect.common_lib.dto.ResponseDto;
+import jakarta.ws.rs.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -49,17 +50,20 @@ public abstract class BaseController<ID, E extends BaseEntity, D extends BaseDto
 
     @GetMapping("/{id}")
     public ResponseEntity<ResponseDto> findById(@PathVariable ID id) {
-        Optional<E> entity = baseService.findById(id);
+        Optional<E> OptEntity = baseService.findById(id);
+        E entity = OptEntity.orElseThrow(() -> new NotFoundException("Entity not found"));
+        D responseDto = baseMapper.toDto(entity);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(new ResponseDto("Success", null));
+                .body(new ResponseDto("Success", responseDto));
     }
 
     @GetMapping()
     public ResponseEntity<ResponseDto> findAll() {
         List<E> entities = baseService.findAll();
+        List<D> responseDto = baseMapper.toDto(entities);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(new ResponseDto("Success", null));
+                .body(new ResponseDto("Success", responseDto));
     }
 }
