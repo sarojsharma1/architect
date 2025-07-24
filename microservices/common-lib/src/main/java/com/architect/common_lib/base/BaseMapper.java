@@ -11,6 +11,4 @@ public interface BaseMapper<E extends BaseEntity, D extends BaseDto> {
     List<D> toDto(List<E> entity);
 
     E toEntity(D dto);
-
-
 }
