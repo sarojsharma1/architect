@@ -16,7 +16,7 @@ public class SecurityConfig {
     @Bean
     public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
         return http.authorizeExchange(exchanges -> exchanges
-                        .pathMatchers("/auth/**", "/data/**", "/process/**").permitAll()
+                        .pathMatchers("/auth/**", "/data/**", "/process/**", "/actuator/**").permitAll()
                         .anyExchange().authenticated())
                 .oauth2ResourceServer(oauth2 -> oauth2
                         .jwt(Customizer.withDefaults()))

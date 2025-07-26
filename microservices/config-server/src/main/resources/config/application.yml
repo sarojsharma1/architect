@@ -14,3 +14,12 @@ spring:
       resourceserver:
         jwt:
           jwk-set-uri: http://localhost:8085/auth/.well-known/jwks.json
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, metrics
+  endpoint:
+    health:
+      show-details: always
