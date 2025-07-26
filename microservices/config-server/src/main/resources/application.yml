@@ -15,6 +15,10 @@ spring:
     name: config-server
   profiles:
     include: native
+  security:
+    user:
+      name: test
+      password: test
   cloud:
     config:
       server:
