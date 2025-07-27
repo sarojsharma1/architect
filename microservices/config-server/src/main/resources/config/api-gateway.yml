@@ -1,5 +1,15 @@
 server:
   port: 8021
+  ssl:
+    enabled: true
+    key-alias: apigateway
+    key-store-type: PKCS12
+    key-store: "D:/architect/store/apigateway-keystore.p12"
+    key-store-password: changeit
+    trust-store-type: JKS
+    trust-store: "D:/architect/store/apigateway-truststore.jks"
+    trust-store-password: changeit
+    client-auth: need
 
 spring:
   cloud:
