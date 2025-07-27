@@ -3,5 +3,7 @@ server:
 spring:
   application:
     name: auth-server
-  webflux:
-    base-path: /auth
+  security:
+    oauth2:
+      authorization-server:
+        issuer-uri: http://localhost:${server.port}
