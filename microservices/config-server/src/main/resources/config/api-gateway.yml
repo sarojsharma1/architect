@@ -9,7 +9,7 @@ server:
     trust-store-type: JKS
     trust-store: "D:/architect/store/apigateway-truststore.jks"
     trust-store-password: changeit
-    client-auth: need
+    client-auth: none
 
 spring:
   cloud:
