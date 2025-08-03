@@ -16,7 +16,7 @@ public class RabbitConfig {
     @Bean
     public Queue queue() {
         return QueueBuilder.durable(QUEUE)
-                .withArgument("x-overflow", "drop-head")
+                .withArgument("x-overflow", "drop-head").withArgument("x-max-length", 1000)
                 .withArgument("x-message-ttl", 2000)
                 .withArgument("x-dead-letter-exchange", DL_EXCHANGE)
                 .withArgument("x-dead-letter-routing-key", DL_ROUTING_KEY)
