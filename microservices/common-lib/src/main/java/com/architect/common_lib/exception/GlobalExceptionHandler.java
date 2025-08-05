@@ -1,7 +1,6 @@
 package com.architect.common_lib.exception;
 
 import com.architect.common_lib.dto.ResponseDto;
-import jakarta.ws.rs.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -15,11 +14,5 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<ResponseDto> handleNotFoundException(NotFoundException ex, WebRequest request) {
         ResponseDto responseDto = new ResponseDto(ex.getMessage(), null);
         return new ResponseEntity<>(responseDto, HttpStatus.NOT_FOUND);
-    }
-
-    @ExceptionHandler(value = EntityNotFoundException.class)
-    public ResponseEntity<ResponseDto> handleCustomException(EntityNotFoundException ex, WebRequest request) {
-        ResponseDto responseDto = new ResponseDto(ex.getMessage(), null);
-        return new ResponseEntity<>(responseDto, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
