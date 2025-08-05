@@ -6,14 +6,11 @@ import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Slf4j
 public class ExtractMetaData {
-    private String getRecSeparator(BufferedInputStream inputStream) {
+    public static String getRecSeparator(BufferedInputStream inputStream) {
         Set<String> separator = new HashSet<>();
         try {
             inputStream.mark(1024 * 1024);
@@ -109,5 +106,84 @@ public class ExtractMetaData {
             index += pattern.length();
         }
         return count;
+    }
+
+    private static List<String> getFileInfo(List<String> fileLines) throws Exception {
+        HashMap<String, List<List<Integer>>> fldDlms = new HashMap<>();
+        List<String> fieldDelimiters = List.of("'", "\"", "`");
+        String firstRow = fileLines.removeFirst();                                                //remove first row to check header
+        for (String fieldDelimiter : fieldDelimiters) {
+            List<List<Integer>> fldDlm = new ArrayList<>();
+            for (String line : fileLines) {
+                if (line.contains(fieldDelimiter)) {
+                    List<Integer> fieldDlmPos = getFieldDlmPosition(line, fieldDelimiter);
+                    if (fieldDlmPos.size() % 2 == 0) {
+                        fldDlm.add(fieldDlmPos);
+                    } else break;
+                } else break;
+            }
+            fldDlms.put(fieldDelimiter, fldDlm);
+        }
+        String fieldDlm = "None";
+        List<List<Integer>> fieldDlmPos = new ArrayList<>();
+        for (Map.Entry<String, List<List<Integer>>> entry : fldDlms.entrySet()) {
+            if (entry.getValue().size() == fileLines.size()) {
+                fieldDlm = entry.getKey();
+                fieldDlmPos = entry.getValue();
+                break;
+            }
+        }
+        LinkedHashMap<String, List<Integer>> fldSep = new LinkedHashMap<>();
+        String fieldSep = null;
+        List<String> fieldSeparators = List.of(
+                "\"\t\"", "\t",
+                "~|~", "|~|",
+                "||", "~|",
+                "|", ",", ";", "~", "*", "-", "_", "@", "/", "^", "&", "Ç", "ç", "+", "q");
+        if (fieldDlm.equals("None")) {
+            for (String fieldSeparator : fieldSeparators) {
+                List<Integer> count = new ArrayList<>();
+                for (String line : fileLines) {
+                    if (line.contains(fieldSeparator)) {
+                        count.add(countFieldSepFreq(line, fieldSeparator));
+                    }
+                }
+                if (!count.isEmpty()) {
+                    fldSep.put(fieldSeparator, count);
+                }
+            }
+            for (Map.Entry<String, List<Integer>> entry : fldSep.entrySet()) {
+                if (entry.getValue().size() == fileLines.size() && entry.getValue().stream().distinct().count() == 1) {
+                    fieldSep = entry.getKey();
+                    break;
+                }
+            }
+        } else {
+            for (String fieldSeparator : fieldSeparators) {
+                List<Integer> count = new ArrayList<>();
+                int i = 0;
+                for (String line : fileLines) {
+                    if (line.contains(fieldSeparator)) {
+                        count.add(countFieldSepFreq(line, fieldSeparator, fieldDlmPos.get(i)));
+                    }
+                    i++;
+                }
+                if (!count.isEmpty()) {
+                    fldSep.put(fieldSeparator, count);
+                }
+            }
+            for (Map.Entry<String, List<Integer>> entry : fldSep.entrySet()) {
+                if (entry.getValue().size() == fileLines.size() && entry.getValue().stream().distinct().count() == 1) {
+                    fieldSep = entry.getKey();
+                    break;
+                }
+            }
+        }
+        List<String> metaInfo = new ArrayList<>();
+        boolean hasHeader = hasHeader(fieldDlm.charAt(0), fieldSep, firstRow);
+        metaInfo.add(String.valueOf(hasHeader));
+        metaInfo.add(fieldDlm);
+        metaInfo.add(fieldSep);
+        return metaInfo;
     }
 }

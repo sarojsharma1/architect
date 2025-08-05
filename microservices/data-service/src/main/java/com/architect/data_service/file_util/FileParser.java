@@ -8,14 +8,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 @Slf4j
 public class FileParser {
-    public List<List<String>> delimitedFileParser(FileMetaDataDto fileMetaData,
-                                                  int noOfLinesToProcess,
-                                                  String operation
+    public static List<List<String>> delimitedFileParser(FileMetaDataDto fileMetaData,
+                                                         int noOfLinesToProcess,
+                                                         String operation
     ) {
         CSVFormat.Builder csvFormat = CSVFormat.DEFAULT.builder()
                 .setTrim(true);
@@ -24,7 +23,8 @@ public class FileParser {
 
         if (fileMetaData.getFieldSeparator() == null || fileMetaData.getFieldSeparator().isEmpty()) {
             if (operation.equals("filePreview")) {
-                return rawFilePreview(fileMetaData.getFilePath(), noOfLinesToProcess);
+                return null;
+//                return rawFilePreview(fileMetaData.getFilePath(), noOfLinesToProcess);
             } else {
                 log.error("Field separator cannot be empty while populating field metadata.");
 //                throw new BadRequestException("Field separator cannot be empty while populating field metadata.");
@@ -68,17 +68,17 @@ public class FileParser {
         }
     }
 
-    private List<List<String>> fixedWidthFileParser(FileMetaDataDto fileMetaData,
-                                                    int noOfLinesToProcess,
-                                                    String operation) {
+    public static List<List<String>> fixedWidthFileParser(FileMetaDataDto fileMetaData,
+                                                          int noOfLinesToProcess,
+                                                          String operation) {
         //TODO:
         return null;
     }
 
 
-    private Map<String, List<String>> excelFileParser(FileMetaDataDto fileMetaData,
-                                                      int noOfLinesToProcess,
-                                                      String operation) {
+    public static List<List<String>> excelFileParser(FileMetaDataDto fileMetaData,
+                                                     int noOfLinesToProcess,
+                                                     String operation) {
         //TODO:
         return null;
     }

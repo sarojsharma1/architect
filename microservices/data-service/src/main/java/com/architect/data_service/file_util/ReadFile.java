@@ -29,7 +29,7 @@ public class ReadFile {
                     .forEach(fileLines::add);
             List<String> fileMetaInfo = new ArrayList<>();
             try {
-                fileMetaInfo.add(getRecSeparator(inputStream));
+                fileMetaInfo.add(ExtractMetaData.getRecSeparator(inputStream));
             } catch (Exception e) {
                 log.error("sorry, unable to extract file details");
             }

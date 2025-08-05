@@ -304,20 +304,20 @@ public class FileRecordAnalyzer {
     }
 
 
-    private String checkPrecedence(Set<String> typeSet) {
-        List<String> precedence = new ArrayList<>(List.of(
-                "tinyint", "smallint", "int", "bigint",
-                "float", "money", "decimal",
-                "date", "smalldatetime", "datetime", "datetime2",
-                "char", "varchar"));
-        if ((typeSet.contains("float") && typeSet.contains("money"))) {
-            return "decimal";
-        }
-        return typeSet.stream()
-                .filter(precedence::contains)
-                .max(Comparator.comparingInt(precedence::indexOf))
-                .orElse(null);
-    }
+//    private String checkPrecedence(Set<String> typeSet) {
+//        List<String> precedence = new ArrayList<>(List.of(
+//                "tinyint", "smallint", "int", "bigint",
+//                "float", "money", "decimal",
+//                "date", "smalldatetime", "datetime", "datetime2",
+//                "char", "varchar"));
+//        if ((typeSet.contains("float") && typeSet.contains("money"))) {
+//            return "decimal";
+//        }
+//        return typeSet.stream()
+//                .filter(precedence::contains)
+//                .max(Comparator.comparingInt(precedence::indexOf))
+//                .orElse(null);
+//    }
 
 
     private List<FileRecordInfo> setInHouseMetaData(List<FileRecordInfo> fileRecordInfos, int headerSize, String connectorName) {

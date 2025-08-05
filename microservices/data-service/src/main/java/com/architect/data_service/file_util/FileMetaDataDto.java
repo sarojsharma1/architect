@@ -7,6 +7,7 @@ import lombok.Data;
 @Builder
 public class FileMetaDataDto {
     private Boolean hasHeader;
+    private String connectorName;
     private String fieldSeparator;
     private String fieldDelimiter;
     private String rowTerminator;

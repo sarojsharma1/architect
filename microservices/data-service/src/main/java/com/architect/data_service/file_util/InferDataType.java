@@ -4,10 +4,18 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.math.BigDecimal;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.regex.Pattern;
 
 @Slf4j
 public class InferDataType {
+    public static String cleanInput(String n) {
+        if (n == null || n.isEmpty()) {
+            return "UNKNOWN";
+        }
+        return n.trim();
+    }
+
     private static String checkNumericType(String n) {
         n = cleanInput(n);
         if (n.equals("UNKNOWN")) return n;
@@ -109,10 +117,94 @@ public class InferDataType {
                 .orElse(null);
     }
 
-    public static String cleanInput(String n) {
-        if (n == null || n.isEmpty()) {
-            return "UNKNOWN";
+    private List<FileDetailDto> getDataType(String connectorName, Map<String, List<String>> records) {
+        List<FileDetailDto> fileDetails = new ArrayList<>();
+        AtomicInteger i = new AtomicInteger(1);
+        records.forEach((header, row) -> {
+            FileDetailDto fileDetail = FileDetailDto.builder()
+//                    .header("Maps")
+                    .sourceColumnNo(i.get())
+                    .sourceColumnName(header)
+                    .sourceDataType("text")
+                    .sourceDataLength("999")
+                    .targetColumnNo(i.get())
+                    .targetColumnName(camelCase(header))
+                    .targetDataType("varchar")
+                    .targetDataLength(0)
+                    .targetDataPrecision(0)
+                    .targetDecimalPlaces(0)
+                    .targetNullable(row.contains("") ? "yes" : "no")
+                    .build();
+            i.getAndIncrement();
+
+            String type;
+            if (!row.isEmpty()) {
+                Set<String> numType = new HashSet<>();
+                for (String item : row) {
+                    if (item.isEmpty()) continue;
+                    type = checkNumericType(item);
+                    if (type.contains("UNKNOWN")) {
+                        numType.clear();
+                        break;
+                    }
+                    numType.add(type);
+                }
+                if (numType.isEmpty()) {
+                    Set<String> dateTimeType = new HashSet<>();
+                    for (String item : row) {
+                        if (item.isEmpty()) continue;
+                        type = checkDateTimeType(item);
+                        if (type.equals("UNKNOWN")) {
+                            dateTimeType.clear();
+                            break;
+                        }
+                        dateTimeType.add(type);
+                    }
+                    if (dateTimeType.isEmpty()) {
+                        List<String> rawCharType = checkCharStringType(row);
+                        fileRecordInfo.setTrgDataAlias(rawCharType.getFirst());
+                        fileRecordInfo.setTrgDataLength(Integer.parseInt(rawCharType.getLast()));
+                    } else if (dateTimeType.size() == 1) {
+                        String[] rawDateType = dateTimeType.iterator().next().split("=");
+                        fileRecordInfo.setTrgDataAlias(rawDateType[0]);
+                        fileRecordInfo.setTrgDateFormat(rawDateType[1]);
+                    }
+                } else if (numType.size() == 1) {
+                    String[] rawType = numType.iterator().next().split(":");
+                    fileRecordInfo.setTrgDataAlias(rawType[0]);
+                    fileRecordInfo.setTrgDataPrecision(Integer.parseInt(rawType[1]));
+                    fileRecordInfo.setTrgDataDecimalPlaces(Integer.parseInt(rawType[2]));
+                } else {
+                    int precision = 0;
+                    int scale = 0;
+                    Set<String> mixNumType = new HashSet<>();
+                    for (String item : numType) {
+                        String[] rawType = item.split(":");
+                        mixNumType.add(rawType[0]);
+                        precision = Math.max(Integer.parseInt(rawType[1]), precision);
+                        scale = Math.max(Integer.parseInt(rawType[2]), scale);
+                    }
+                    type = checkPrecedence(mixNumType);
+                    fileRecordInfo.setTrgDataAlias(type);
+                    fileRecordInfo.setTrgDataPrecision(precision);
+                    fileRecordInfo.setTrgDataDecimalPlaces(scale);
+                }
+                fileRecordInfos.add(fileRecordInfo);
+            }
+        });
+        return setInHouseMetaData(fileRecordInfos, i.get(), connectorName);
+    }
+
+    private static String camelCase(String header) {
+        if (!header.contains("_") && !header.contains(" ")) {
+            return header;
         }
-        return n.trim();
+        String[] subHeader = header.split("[_ ]");
+        StringBuilder camelCaseHeader = new StringBuilder(subHeader[0].toLowerCase());
+        for (int i = 1; i < subHeader.length; i++) {
+            camelCaseHeader.append(subHeader[i].substring(0, 1).toUpperCase())
+                    .append(subHeader[i].substring(1).toLowerCase());
+        }
+        return camelCaseHeader.toString();
     }
 }
