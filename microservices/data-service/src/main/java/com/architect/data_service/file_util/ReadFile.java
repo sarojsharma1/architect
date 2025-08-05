@@ -1,5 +1,7 @@
 package com.architect.data_service.file_util;
 
+import com.architect.common_lib.exception.NotFoundException;
+import com.architect.common_lib.exception.OperationFailedException;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.BufferedInputStream;
@@ -38,13 +40,13 @@ public class ReadFile {
             return result;
         } catch (NoSuchFileException ex) {
             log.error("Provided source location is invalid or not found", ex);
-//            throw new NotFoundException("Provided source location is invalid or not found");
+            throw new NotFoundException("Provided source location is invalid or not found");
         } catch (AccessDeniedException ex) {
             log.error("Access denied while reading the file", ex);
-//            throw new OperationFailedException("Access denied while reading the file", ex.getMessage());
+            throw new OperationFailedException("Access denied while reading the file", ex);
         } catch (IOException ex) {
             log.error("Error occurred while reading the file", ex);
-//            throw new OperationFailedException("Error occurred while reading the file", ex.getMessage());
+            throw new OperationFailedException("Error occurred while reading the file", ex);
         }
     }
 }

@@ -15,4 +15,10 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         ResponseDto responseDto = new ResponseDto(ex.getMessage(), null);
         return new ResponseEntity<>(responseDto, HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler(value = OperationFailedException.class)
+    public ResponseEntity<ResponseDto> handleOperationFailedException(OperationFailedException ex, WebRequest request) {
+        ResponseDto responseDto = new ResponseDto(ex.getMessage(), null);
+        return new ResponseEntity<>(responseDto, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 }

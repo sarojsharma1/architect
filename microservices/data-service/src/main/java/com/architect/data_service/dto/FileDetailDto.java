@@ -1,4 +1,4 @@
-package com.architect.data_service.file_util;
+package com.architect.data_service.dto;
 
 import lombok.Builder;
 import lombok.Data;
