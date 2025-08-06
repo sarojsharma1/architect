@@ -17,6 +17,7 @@ public class FileDetailDto {
     private Integer targetDataPrecision;
     private Integer targetDecimalPlaces;
     private Boolean targetNullable;
+    private String targetDateFormat;
     private String transformationRule;
 }
 

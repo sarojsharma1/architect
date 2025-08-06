@@ -19,13 +19,13 @@ public class TestController {
 
     @GetMapping
     public String test() {
-//        rabbitMQProducer.send("Message");
+        rabbitMQProducer.send("Message");
         restClient.callProcessService().subscribe(
-                (data) -> {
+                data -> {
                     System.out.println("Data fetched: " + data);
                 },
-                (err) -> {
-                    System.out.println("Error occurred" + err.getMessage());
+                error -> {
+                    System.out.println("Error occurred" + error.getMessage());
                 },
                 () -> {
                     System.out.println("Completed");
