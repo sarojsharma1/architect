@@ -1,0 +1,8 @@
+server:
+  port: ${auth-server.port}
+
+spring:
+  security:
+    oauth2:
+      authorization-server:
+        issuer-uri: http://localhost:${server.port}

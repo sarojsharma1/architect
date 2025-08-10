@@ -4,6 +4,8 @@ server:
     context-path: /data
 
 spring:
+  config:
+    import: classpath:/config/common.yml
   data:
     mongodb:
       uri: mongodb://root:root@localhost:27017/test   #mongodb://<username>:<password>@<host>:<port>/<database>
@@ -34,7 +36,6 @@ resilience4j:
       sampleService:
         maxAttempts: 2
         waitDuration: 2s
-
 
 process:
   service:
