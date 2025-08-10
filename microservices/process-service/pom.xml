@@ -32,6 +32,7 @@
 		<grpc.version>1.72.0</grpc.version>
 		<protobuf-java.version>4.30.2</protobuf-java.version>
 		<spring-grpc.version>0.8.0</spring-grpc.version>
+		<com.architect.common-lib>0.0.1-SNAPSHOT</com.architect.common-lib>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -45,7 +46,7 @@
 		<dependency>
 			<groupId>com.architect</groupId>
 			<artifactId>common-lib</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>${com.architect.common-lib}</version>
 		</dependency>
 	</dependencies>
 	<dependencyManagement>
