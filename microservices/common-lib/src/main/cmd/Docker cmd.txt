@@ -1,4 +1,8 @@
+docker-compose up container-name
 docker-compose up mongodb
+docker-compose up -d rabbitmq
+docker-compose stop rabbitmq
+
 docker exec -it mongodb mongosh -u root -p root
 
 A self-sufficient runtime for containers
