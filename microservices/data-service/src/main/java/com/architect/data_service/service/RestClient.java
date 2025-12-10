@@ -37,17 +37,4 @@ public class RestClient {
         System.out.println("Unable to connect to service " + t.getMessage());
         return Flux.just("Fallback response");
     }
-
-    @Async
-    public void asyncOp() {
-        System.out.println("Hello");
-    }
-
-    public void customAsyncOp() {
-        CompletableFuture<String> res = CompletableFuture.supplyAsync(() -> {
-            return "success";
-        }).exceptionally(ex -> {
-            return "error";
-        });
-    }
 }
