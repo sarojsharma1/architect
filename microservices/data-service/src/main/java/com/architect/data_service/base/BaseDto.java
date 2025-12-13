@@ -1,4 +1,4 @@
-package com.architect.common_lib.base;
+package com.architect.data_service.base;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

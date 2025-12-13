@@ -1,4 +1,4 @@
-package com.architect.common_lib.base;
+package com.architect.data_service.base;
 
 import java.util.List;
 import java.util.Optional;

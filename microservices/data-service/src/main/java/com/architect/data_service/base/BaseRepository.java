@@ -1,4 +1,4 @@
-package com.architect.common_lib.base;
+package com.architect.data_service.base;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.NoRepositoryBean;

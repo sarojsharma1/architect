@@ -1,4 +1,4 @@
-package com.architect.common_lib.base;
+package com.architect.data_service.base;
 
 import com.architect.common_lib.dto.ResponseDto;
 import com.architect.common_lib.exception.NotFoundException;
