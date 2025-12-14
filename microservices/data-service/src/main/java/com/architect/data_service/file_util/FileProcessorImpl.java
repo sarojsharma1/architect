@@ -1,0 +1,55 @@
+package com.architect.data_service.file_util;
+
+import com.architect.data_service.dto.FileDetailDto;
+import com.architect.data_service.dto.FileMetaDataDto;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+@Service("basicFileProcessor")
+public class FileProcessorImpl implements FileProcessor {
+    @Override
+    public List<FileDetailDto> getFileDetails(FileMetaDataDto fileMetaData) {
+        Map<String, List<String>> record = new LinkedHashMap<>();
+        String connectorName = fileMetaData.getConnectorName();
+        switch (connectorName) {
+            case "ASCII (Delimited)" -> {
+                record = transformRecord(FileParser.delimitedFileParser(fileMetaData, 100));
+            }
+            case "Unicode (Delimited)" -> {
+                List<List<String>> records = FileParser.delimitedFileParser(fileMetaData, 100);
+                List<String> cleanHeader = records.getFirst().stream()
+                        .map(FileProcessorImpl::replaceNonPrintableUnicodeCharacter)
+                        .toList();
+                records.removeFirst();
+                records.addFirst(cleanHeader);
+                record = transformRecord(records);
+            }
+        }
+        return Infer.dataType(connectorName, record);
+    }
+
+    @Override
+    public Map<String, List<String>> transformRecord(List<List<String>> rows) {
+        Map<String, List<String>> transposeRecord = new LinkedHashMap<>();
+        List<String> headers = rows.getFirst();
+        rows.removeFirst();
+        for (int i = 0; i < headers.size(); i++) {
+            transposeRecord.put(headers.get(i), new ArrayList<>());
+            for (List<String> row : rows) {
+                transposeRecord.get(headers.get(i)).add(row.get(i));
+            }
+        }
+        return transposeRecord;
+    }
+
+    private static String replaceNonPrintableUnicodeCharacter(String input) {
+        Matcher matcher = Pattern.compile("[\\p{C}]").matcher(input);
+        return matcher.replaceAll("");
+    }
+}
