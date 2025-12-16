@@ -2,6 +2,7 @@ package com.architect.process_service.service.job;
 
 import com.architect.process_service.service.job.dto.EventDto;
 import com.architect.process_service.service.job.dto.JobDetailDto;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -17,5 +18,8 @@ public class JobService {
         return JobDetailDto.builder().jobId(1).build();
     }
 
-    public void setJobStatus
+    @Async("taskExecutor")
+    public void dispatchJob(String job) {
+        System.out.println("Inside dispatch job" + job);
+    }
 }

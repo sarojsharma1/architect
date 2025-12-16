@@ -2,3 +2,7 @@ server:
   port: 8023
   servlet:
     context-path: /process
+
+spring:
+  config:
+    import: classpath:/config/common.yml

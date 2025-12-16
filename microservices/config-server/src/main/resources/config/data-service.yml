@@ -6,18 +6,6 @@ server:
 spring:
   config:
     import: classpath:/config/common.yml
-  data:
-    mongodb:
-      uri: mongodb://root:root@localhost:27017/test   #mongodb://<username>:<password>@<host>:<port>/<database>
-  datasource:
-    url: jdbc:sqlserver://localhost:1433;databaseName=Architect;encrypt=true;trustServerCertificate=true;
-    username: sa    #System Administrator
-    password: StrongPassword123!
-    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-  jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: true
 
 resilience4j:
   circuitbreaker:

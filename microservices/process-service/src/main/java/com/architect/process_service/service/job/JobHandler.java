@@ -22,6 +22,7 @@ public class JobHandler {
         CompletableFuture.runAsync(
                 () -> {
                     boolean isExecutable = this.jobService.isJobExecutable(eventDto);
+                    this.jobService.dispatchJob("test");
                 },
                 executor
         );
