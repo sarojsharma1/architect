@@ -1,4 +1,4 @@
-package com.architect.process_service.job_executor;
+package com.architect.process_service.service.job;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

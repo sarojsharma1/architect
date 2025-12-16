@@ -1,6 +1,5 @@
-package com.architect.process_service.service;
+package com.architect.process_service.service.job;
 
-import com.architect.process_service.job_executor.RunJob;
 import com.rabbitmq.client.Channel;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
@@ -13,7 +12,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
 
 @Service
-public class RabbitMQConsumer {
+public class Consumer {
     @Autowired
     @Qualifier("taskExecutor")
     private Executor executor;
@@ -44,5 +43,9 @@ public class RabbitMQConsumer {
         //check idempotent
         //event process
         return event;
+    }
+
+    public void checkIdempotent() {
+
     }
 }
