@@ -5,6 +5,6 @@ import lombok.Data;
 
 @Builder
 @Data
-public class JobDto {
+public class JobDetailDto {
     private long jobId;
 }

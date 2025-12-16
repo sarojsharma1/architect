@@ -7,4 +7,5 @@ import lombok.Data;
 @Data
 public class WorkflowDto {
     private long workflowId;
+    private boolean isJobInitiated;
 }
