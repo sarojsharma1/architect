@@ -1,4 +1,4 @@
-package com.architect.process_service.service.job.entity;
+package com.architect.process_service.service.workflow.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

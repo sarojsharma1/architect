@@ -1,6 +1,7 @@
-package com.architect.process_service.service.job;
+package com.architect.process_service.service.workflow;
 
-import com.architect.process_service.service.job.dto.EventDto;
+import com.architect.process_service.service.workflow.dto.EventDto;
+import com.architect.process_service.service.workflow.job.JobHandler;
 import com.rabbitmq.client.Channel;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;

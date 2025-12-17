@@ -1,6 +1,6 @@
-package com.architect.process_service.service.job.dto;
+package com.architect.process_service.service.workflow.dto;
 
-import com.architect.process_service.service.job.JobStatus;
+import com.architect.process_service.service.workflow.enum_obj.JobStatus;
 import lombok.Builder;
 import lombok.Data;
 

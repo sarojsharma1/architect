@@ -1,5 +1,6 @@
-package com.architect.process_service.service.job.entity;
+package com.architect.process_service.service.workflow.entity;
 
+import com.architect.process_service.service.workflow.enum_obj.JobStatus;
 import jakarta.persistence.*;
 
 @Entity
@@ -11,4 +12,6 @@ public class JobDetail extends BaseEntity {
     @JoinColumn(name = "workflow_id")
     @ManyToOne(fetch = FetchType.LAZY)
     private WorkflowDetail workflowDetail;
+
+    private JobStatus status;
 }

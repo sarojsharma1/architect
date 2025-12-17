@@ -1,6 +1,6 @@
-package com.architect.process_service.service.job;
+package com.architect.process_service.service.workflow.job;
 
-import com.architect.process_service.service.job.dto.EventDto;
+import com.architect.process_service.service.workflow.dto.EventDto;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +21,7 @@ public class JobHandler {
     public void startAsyncTask(EventDto eventDto) {
         CompletableFuture.runAsync(
                 () -> {
+                    System.out.println(Thread.currentThread().getName());
                     boolean isExecutable = this.jobService.isJobExecutable(eventDto);
                     this.jobService.dispatchJob("test");
                 },

@@ -1,6 +1,6 @@
-package com.architect.process_service.service.job.entity;
+package com.architect.process_service.service.workflow.entity;
 
-import com.architect.process_service.service.job.JobStatus;
+import com.architect.process_service.service.workflow.enum_obj.JobStatus;
 import jakarta.persistence.Entity;
 
 import java.time.Instant;
