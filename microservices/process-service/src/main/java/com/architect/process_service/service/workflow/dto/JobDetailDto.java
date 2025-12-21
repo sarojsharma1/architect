@@ -7,5 +7,8 @@ import lombok.Data;
 @Data
 public class JobDetailDto {
     private long jobId;
+    private long previousJobId;
+    private long nextJobId;
+    private long eventId;
     private String jobName;
 }

@@ -23,11 +23,22 @@ public class JobService {
         return JobDetailDto.builder().jobId(1).build();
     }
 
+    public boolean hasNextJob() {
+        return true;
+
+        //wrap the whole jobs into a workflow
+        // Start ------ previous_job_id ------- current_job_id -------- next_job_id ------- End
+
+        // start ko case ma previous_job_id = null
+        // end ko case ma next_job_id = null
+    }
+
     @Async("taskExecutor")
     public void dispatchJob(String job) {
-        isJobExecutable(EventDto.builder().build());
+        boolean nextJob = hasNextJob();
         JobDetailDto jobDetailDto = getNextJob(EventDto.builder().build());
+        isJobExecutable(EventDto.builder().build());
         String jobName = jobDetailDto.getJobName();
-        this.unzipJobHandler.unzip();
+        String name = this.unzipJobHandler.unzip("input");
     }
 }

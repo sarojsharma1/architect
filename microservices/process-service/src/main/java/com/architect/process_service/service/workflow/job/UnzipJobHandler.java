@@ -4,7 +4,11 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class UnzipJobHandler {
-    public void unzip() {
+    public String unzip(String input) {
+        return "Output";
+    }
 
+    public boolean canHandle(String fileName) {
+        return fileName.endsWith(".zip");
     }
 }
