@@ -12,8 +12,9 @@ import java.util.UUID;
 public class EventDto {
     private final String eventId = UUID.randomUUID().toString();
     private String workflowId;                                      // Identifies the workflow instance
-    private String jobId;                                           // Job that just finished
+    private String jobId;                                           // JobStrategy that just finished
     private JobStatus status;                                       // COMPLETED / FAILED
     private Instant occurredAt;                                     // EventDto time
     private int attempt;                                            // Retry attempt (optional)
+    private JobDetailDto jobDetailDto;
 }

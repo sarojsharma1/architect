@@ -19,17 +19,11 @@ public class JobHandler {
     }
 
     public void startAsyncTask(EventDto eventDto) {
-        CompletableFuture.supplyAsync(
+        CompletableFuture.runAsync(
                 () -> {
-                    boolean isExecutable = this.jobService.isJobExecutable(eventDto);
-                    this.jobService.dispatchJob("test");
-                    return 5;
+                    this.jobService.dispatchJob(eventDto);
                 },
                 executor
-        ).thenApply((a) -> {
-            return "test";
-        }).thenAccept(
-                System.out::println
         );
     }
 }
