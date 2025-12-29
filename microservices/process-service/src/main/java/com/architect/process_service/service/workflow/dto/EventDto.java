@@ -17,4 +17,5 @@ public class EventDto {
     private Instant occurredAt;                                     // EventDto time
     private int attempt;                                            // Retry attempt (optional)
     private JobDetailDto jobDetailDto;
+//    private WorkflowType workflowType;                              // PREORDER / STEPWISE
 }
