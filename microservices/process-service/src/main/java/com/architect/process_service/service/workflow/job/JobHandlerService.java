@@ -14,9 +14,8 @@ public class JobHandlerService {
     }
 
     public JobDetailDto determineNextJob(EventDto eventDto) {
-        //based on workflow type
-        //file type: .zip → UnzipJob
-        //Stepwise: JobA → JobB → JobC
+        //Pre-ordered workflow based on file type: .zip → UnzipJob
+        //Custom-ordered workflow: JobA → JobB → JobC
         return JobDetailDto.builder().jobId(1).build();
     }
 

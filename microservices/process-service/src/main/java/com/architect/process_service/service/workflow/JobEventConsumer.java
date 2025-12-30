@@ -10,10 +10,10 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 
 @Service
-public class Consumer {
+public class JobEventConsumer {
     private final JobHandlerService jobHandlerService;
 
-    Consumer(JobHandlerService jobHandlerService) {
+    JobEventConsumer(JobHandlerService jobHandlerService) {
         this.jobHandlerService = jobHandlerService;
     }
 
