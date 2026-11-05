@@ -13,7 +13,7 @@ public class JobEventPublisher {
         this.rabbitTemplate = rabbitTemplate;
     }
 
-    public void sendMessage(EventDto eventDto) {
-        rabbitTemplate.convertAndSend(RabbitConfig.EXCHANGE, RabbitConfig.ROUTING_KEY, eventDto);
+    public void sendMessage(EventDto outEvent) {
+        rabbitTemplate.convertAndSend(RabbitConfig.EXCHANGE, RabbitConfig.ROUTING_KEY, outEvent);
     }
 }

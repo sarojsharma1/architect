@@ -14,9 +14,22 @@ public class JobHandlerService {
     }
 
     public JobDetailDto determineNextJob(EventDto eventDto) {
-        //Pre-ordered workflow based on file type: .zip → UnzipJob
-        //Custom-ordered workflow: JobA → JobB → JobC
-        return JobDetailDto.builder().jobId(1).build();
+        //(eventDto.getWorkflowId(), eventDto.getJobId()) ---> todo
+        //at first the jobId will be null initially
+        //  Custom-ordered workflow (DB-driven):
+        //    if workflow.orderType == CUSTOM
+        //      - Fetch the next job from the database based on: workflowId and lastCompletedJob
+        //      - Example: JobA -> JobB -> JobC
+
+        // FileType-ordered workflow (fallback):
+        //    if no custom workflow exists or orderType != CUSTOM
+        //      - Determine job based on file extension
+        //      - Example: .zip -> UNZIP, .pgp -> DECRYPT
+
+        return JobDetailDto.builder()
+                .jobId(1)
+                .jobName("UNZIP")
+                .build();
     }
 
     public boolean isJobExecutable(JobDetailDto jobDetailDto) {
@@ -25,11 +38,10 @@ public class JobHandlerService {
     }
 
     @Async("taskExecutor")
-    public void dispatchJob(EventDto eventDto) {
-        JobDetailDto jobDetailDto = determineNextJob(EventDto.builder().build());
-        jobDetailDto.setJobName("UNZIP");
-        boolean isExecutable = isJobExecutable(jobDetailDto);
-        if (isExecutable) {
+    public void dispatchJob(EventDto inEvent) {
+//        JobDetailDto jobDetailDto = jobMapper.toJobDetail(inEvent);
+        JobDetailDto jobDetailDto = determineNextJob(inEvent);
+        if (isJobExecutable(jobDetailDto)) {
             String jobName = jobDetailDto.getJobName();
             jobStrategyFactory.getStrategy(jobName).execute(jobDetailDto);
         } else {

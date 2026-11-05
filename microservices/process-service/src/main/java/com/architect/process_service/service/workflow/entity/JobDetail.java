@@ -16,15 +16,12 @@ public class JobDetail extends BaseEntity {
     @Column(name = "job_name")
     private String jobName;
 
+    @Column(name = "step_order")
+    private Integer stepOrder;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
     private JobStatus status;
-
-    @Column(name = "previous_job_id")
-    private Long previousJobId;
-
-    @Column(name = "next_job_id")
-    private Long nextJobId;
 
     @ManyToOne()
     @JoinColumn(name = "workflow_detail_id")

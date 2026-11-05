@@ -18,10 +18,11 @@ public class JobEventConsumer {
     }
 
     @RabbitListener(queues = "demoQueue", ackMode = "MANUAL")
-    public void receive(EventDto eventDto, Message message, Channel channel) throws IOException {
+    public void receive(EventDto inEvent, Message message, Channel channel) throws IOException {
         long tag = message.getMessageProperties().getDeliveryTag();
+        inEvent = EventDto.builder().build();
         try {
-            jobHandlerService.dispatchJob(eventDto);
+            jobHandlerService.dispatchJob(inEvent);
             // Persist the event before marking the job as completed
             channel.basicAck(tag, false);
         } catch (Exception e) {

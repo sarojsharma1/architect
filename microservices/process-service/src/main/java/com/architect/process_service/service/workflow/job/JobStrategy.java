@@ -1,9 +1,9 @@
 package com.architect.process_service.service.workflow.job;
 
+import com.architect.process_service.service.workflow.JobEventPublisher;
 import com.architect.process_service.service.workflow.dto.EventDto;
 import com.architect.process_service.service.workflow.dto.JobDetailDto;
 import com.architect.process_service.service.workflow.enum_obj.JobStatus;
-import com.architect.process_service.service.workflow.JobEventPublisher;
 
 import java.time.Instant;
 
@@ -18,9 +18,6 @@ public interface JobStrategy {
         EventDto eventDto = EventDto.builder()
                 .workflowId("1")
                 .jobId("1")
-                .status(JobStatus.INITIATED)
-                .occurredAt(Instant.now())
-                .attempt(0)
                 .build();
         jobEventPublisher.sendMessage(eventDto);
     }
